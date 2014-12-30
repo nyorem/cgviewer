@@ -1,24 +1,18 @@
 #ifndef _MAINWINDOW_HPP_
 #define _MAINWINDOW_HPP_
 
-#include "Scene.hpp"
+#include <QWidget>
 
-#include <QGraphicsView>
-#include <QMouseEvent>
-#include <QKeyEvent>
+#include "Consts.hpp"
+#include "View.hpp"
 
-#define WIDTH 800
-#define HEIGHT 600
-
-class MainWindow : public QGraphicsView {
+class MainWindow : public QWidget {
     public:
-        MainWindow (int w = WIDTH, int h = HEIGHT);
-
-        void mousePressEvent (QMouseEvent *event);
-        void keyPressEvent (QKeyEvent *event);
+        MainWindow (int w = consts::width_window,
+                    int h = consts::height_window);
 
     private:
-        Scene *m_scene;
+        View *m_view;
 };
 
 #endif
