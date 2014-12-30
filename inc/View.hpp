@@ -15,7 +15,6 @@ class View : public QGraphicsView {
         void mousePressEvent (QMouseEvent *event);
         void keyPressEvent (QKeyEvent *event);
 
-    private:
         Scene *m_scene;
 };
 

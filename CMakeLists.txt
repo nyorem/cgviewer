@@ -36,10 +36,15 @@ find_package(Qt5Widgets)
 find_package(CGAL REQUIRED)
 include( ${CGAL_USE_FILE} )
 
+# moc
+qt5_wrap_cpp(moc_sources ${INCLUDE_DIR}/MainWindow.hpp)
+list(APPEND ${${EXECUTABLE_NAME}_SOURCES} ${moc_sources})
+
 # Executable
 ADD_EXECUTABLE(${EXECUTABLE_NAME}
   ${${EXECUTABLE_NAME}_SOURCES}
-  ${${EXECUTABLE_NAME}_HEADRERS}
+  ${${EXECUTABLE_NAME}_HEADERS}
+  ${moc_sources}
   )
 
 # Link
