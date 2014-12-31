@@ -24,23 +24,6 @@ void View::mousePressEvent (QMouseEvent *event) {
 
 void View::keyPressEvent (QKeyEvent *event) {
     switch (event->key()) {
-        case Qt::Key_A:
-            m_scene->randomPointsSquare(100, 150);
-            break;
-
-        case Qt::Key_C:
-            m_scene->compute_crust();
-            m_scene->addCrust();
-            break;
-
-        case Qt::Key_T:
-            m_scene->addDelaunayTriangulation();
-            break;
-
-        case Qt::Key_R:
-            m_scene->reset();
-            break;
-
         case Qt::Key_Escape:
             qApp->quit();
             break;

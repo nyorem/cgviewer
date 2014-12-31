@@ -3,6 +3,9 @@
 
 namespace Graphics {
     static const QPen solidRed = QColor(255, 0, 0);
+    static const QPen solidGreen = QColor(0, 255, 0);
+    static const QPen solidBlue = QColor(0, 0, 255);
+    static const QPen solidBlack = QColor(0, 0, 0);
 }
 
 #endif

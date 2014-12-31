@@ -28,7 +28,7 @@ set (CMAKE_PREFIX_PATH "/usr/local/Cellar/qt5/5.4.0/")
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed.
-set(CMAKE_AUTOMOC ON)
+# set(CMAKE_AUTOMOC ON)
 # Qt5 components
 find_package(Qt5Widgets)
 

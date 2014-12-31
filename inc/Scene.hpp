@@ -4,27 +4,28 @@
 #include <QObject>
 #include <QGraphicsScene>
 
-#include "CGAL_typedefs.hpp"
+#include "QPointListItem.hpp"
+#include "QTriangulationItem.hpp"
+#include "QSegmentListItem.hpp"
 
 class Scene : public QGraphicsScene {
     public:
         Scene (QObject *parent = 0);
-
-        void randomPointsSquare (int N, float a);
+        void init ();
 
         void addPoint (int x, int y);
 
-        void compute_crust ();
-        void addCrust ();
-
-        void addDelaunayTriangulation ();
+        void togglePoints ();
+        void toggleDelaunayTriangulation ();
+        void toggleCrust ();
+        void randomPointsSquare (int N, float a);
 
         void reset ();
 
     private:
-        Points_2 m_points;
-        Segments_2 m_crust;
-        Delaunay_triangulation_2 dt;
+        QPointListItem* m_points;
+        QSegmentListItem* m_crust;
+        QDelaunayTriangulationItem* m_dt;
 };
 
 #endif
