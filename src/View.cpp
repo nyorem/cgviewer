@@ -6,8 +6,6 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 
-#include <QDebug>
-
 View::View (int w, int h, QWidget *parent) : QGraphicsView(parent) {
     resize(w, h);
 

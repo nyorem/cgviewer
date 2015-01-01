@@ -5,8 +5,8 @@
 
 #include <CGAL/Delaunay_triangulation_2.h>
 
-// Computes the crust of a list of points
-// Pre-condition:
+// Computes the crust of a list of points.
+// Pre-conditions:
 // -> InputIterator::value_type = Point_2
 // -> OutputIterator::value_type = Segment_2
 template <typename InputIterator,

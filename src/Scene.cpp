@@ -5,25 +5,23 @@
 
 #include <iterator>
 
-#include <QDebug>
-
 Scene::Scene (QObject *parent) : QGraphicsScene(parent) {
     init();
 }
 
 void Scene::init () {
     // Points
-    m_points = new QPointListItem();
+    m_points = new QPointListItem(Graphics::solidBlack);
     addItem(m_points);
     m_points->show();
 
-    // Delaunay Triangulation
-    m_dt = new QDelaunayTriangulationItem();
+    // Delaunay Triangulation and Voronoi vertices
+    m_dt = new QDelaunayTriangulation2Item(Graphics::solidRed, Graphics::solidBlue);
     addItem(m_dt);
     m_dt->hide();
 
     // Crust
-    m_crust = new QSegmentListItem();
+    m_crust = new QCrustItem(Graphics::solidGreen);
     addItem(m_crust);
     m_crust->hide();
 }
@@ -65,6 +63,15 @@ void Scene::toggleDelaunayTriangulation () {
         m_dt->hide();
     } else {
         m_dt->show();
+        update();
+    }
+}
+
+void Scene::toggleVoronoiVertices () {
+    if (m_dt->isVoronoiVerticesVisible()) {
+        m_dt->hideVoronoiVertices();
+    } else {
+        m_dt->showVoronoiVertices();
         update();
     }
 }

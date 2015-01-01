@@ -3,7 +3,7 @@
 
 #include <CGAL/point_generators_2.h>
 
-// Generate points inside a square.
+// Generate N points inside a square of side a.
 // Pre-condition:
 // -> OutputIterator::value_type = Point_2
 template <typename OutputIterator>

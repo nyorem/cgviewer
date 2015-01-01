@@ -7,20 +7,17 @@
 #include <CGAL/Bbox_2.h>
 
 #include "CGAL_typedefs.hpp"
-#include "Graphics.hpp"
-#include "crust_2.hpp"
 
-// TODO: make class generic (not use crust_2)
+// Wrapper for displaying a 2D path
 class QSegmentListItem : public QGraphicsItem {
     public:
-        QSegmentListItem (QGraphicsItem *parent = 0) : QGraphicsItem(parent) {}
+        QSegmentListItem (const QPen& pen,
+                          QGraphicsItem *parent = 0) : QGraphicsItem(parent), pen(pen) {}
 
         void insert (Point_2 p) {
             m_points.push_back(p);
 
-            m_crust.clear();
-            crust_2(m_points.begin(), m_points.end(),
-                    std::back_inserter(m_crust));
+            computeSegments();
         }
 
         template <typename InputIterator>
@@ -28,19 +25,16 @@ class QSegmentListItem : public QGraphicsItem {
                      InputIterator beyond) {
             m_points.insert(m_points.begin(), begin, beyond);
 
-            m_crust.clear();
-            crust_2(m_points.begin(), m_points.end(),
-                    std::back_inserter(m_crust));
+            computeSegments();
         }
 
         void paint (QPainter *painter,
                     const QStyleOptionGraphicsItem *option,
                     QWidget *widget) {
-            // FIXME: pass color as a parameter
-            painter->setPen(Graphics::solidGreen);
+            painter->setPen(pen);
 
-            for (int i = 0; i < m_crust.size(); ++i) {
-                Segment_2 s = m_crust[i];
+            for (int i = 0; i < m_segments.size(); ++i) {
+                Segment_2 s = m_segments[i];
                 Point_2 p = s.source(), q = s.target();
                 painter->drawLine(p.x(), p.y(), q.x(), q.y());
             }
@@ -61,9 +55,12 @@ class QSegmentListItem : public QGraphicsItem {
             m_points.clear();
         }
 
-    private:
+    protected:
+        virtual void computeSegments () = 0;
+
         Points_2 m_points;
-        Segments_2 m_crust;
+        Segments_2 m_segments;
+        QPen pen;
 };
 
 #endif

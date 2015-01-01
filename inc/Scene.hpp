@@ -4,9 +4,9 @@
 #include <QObject>
 #include <QGraphicsScene>
 
+#include "CGAL_typedefs.hpp"
 #include "QPointListItem.hpp"
-#include "QTriangulationItem.hpp"
-#include "QSegmentListItem.hpp"
+#include "QCrustItem.hpp"
 
 class Scene : public QGraphicsScene {
     public:
@@ -17,6 +17,7 @@ class Scene : public QGraphicsScene {
 
         void togglePoints ();
         void toggleDelaunayTriangulation ();
+        void toggleVoronoiVertices ();
         void toggleCrust ();
         void randomPointsSquare (int N, float a);
 
@@ -24,8 +25,8 @@ class Scene : public QGraphicsScene {
 
     private:
         QPointListItem* m_points;
-        QSegmentListItem* m_crust;
-        QDelaunayTriangulationItem* m_dt;
+        QCrustItem* m_crust;
+        QDelaunayTriangulation2Item* m_dt;
 };
 
 #endif

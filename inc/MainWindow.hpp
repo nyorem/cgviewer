@@ -18,6 +18,7 @@ class MainWindow : public QWidget {
         void togglePoints ();
         void resetScene ();
         void toggleDelaunayTriangulation ();
+        void toggleVoronoiVertices ();
         void toggleCrust ();
         void randomPointsSquare ();
 
@@ -28,6 +29,7 @@ class MainWindow : public QWidget {
         QPushButton* m_pointsButton;
         QPushButton* m_resetButton;
         QPushButton* m_delaunayButton;
+        QPushButton* m_voronoiVerticesButton;
         QPushButton* m_crustButton;
         QPushButton* m_randomSquareButton;
 };

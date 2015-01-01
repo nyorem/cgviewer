@@ -31,6 +31,10 @@ MainWindow::MainWindow (int w, int h) : QWidget() {
     m_delaunayButton = new QPushButton("Delaunay Triangulation", m_rightside);
     m_delaunayButton->move((m_rightside->width() - m_delaunayButton->width()) / 2, 0);
 
+    // Delaunay Triangulation
+    m_voronoiVerticesButton = new QPushButton("Voronoi vertices", m_rightside);
+    m_voronoiVerticesButton->move((m_rightside->width() - m_voronoiVerticesButton->width()) / 2, 0);
+
     // Crust
     m_crustButton = new QPushButton("Crust", m_rightside);
     m_crustButton->move((m_rightside->width() - m_crustButton->width()) / 2, 0);
@@ -44,6 +48,7 @@ MainWindow::MainWindow (int w, int h) : QWidget() {
     layout->addWidget(m_pointsButton);
     layout->addWidget(m_resetButton);
     layout->addWidget(m_delaunayButton);
+    layout->addWidget(m_voronoiVerticesButton);
     layout->addWidget(m_crustButton);
     layout->addWidget(m_randomSquareButton);
     m_rightside->setLayout(layout);
@@ -60,6 +65,10 @@ MainWindow::MainWindow (int w, int h) : QWidget() {
     // Delaunay Triangulation
     connect(m_delaunayButton, &QPushButton::clicked,
             this, &MainWindow::toggleDelaunayTriangulation);
+
+    // Voronoi vertices
+    connect(m_voronoiVerticesButton, &QPushButton::clicked,
+            this, &MainWindow::toggleVoronoiVertices);
 
     // Crust
     connect(m_crustButton, &QPushButton::clicked,
@@ -81,6 +90,10 @@ void MainWindow::resetScene () {
 
 void MainWindow::toggleDelaunayTriangulation () {
     m_view->m_scene->toggleDelaunayTriangulation();
+}
+
+void MainWindow::toggleVoronoiVertices () {
+    m_view->m_scene->toggleVoronoiVertices();
 }
 
 void MainWindow::toggleCrust () {

@@ -5,19 +5,20 @@
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <vector>
 
-#include "QTriangulationItem.hpp"
+#include "QDelaunayTriangulationItem.hpp"
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel Kernel;
 
+// Basic geometric types
 typedef CGAL::Point_2<Kernel> Point_2;
 typedef CGAL::Segment_2<Kernel> Segment_2;
 
 typedef std::vector<Point_2> Points_2;
 typedef std::vector<Segment_2> Segments_2;
 
+// Delaunay triangulations
 typedef CGAL::Delaunay_triangulation_2<Kernel> Delaunay_triangulation_2;
-
-typedef QTriangulationItem<Delaunay_triangulation_2> QDelaunayTriangulationItem;
+typedef QDelaunayTriangulationItem<Delaunay_triangulation_2> QDelaunayTriangulation2Item;
 
 #endif
 

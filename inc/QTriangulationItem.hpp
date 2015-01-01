@@ -7,16 +7,15 @@
 #include <CGAL/Bbox_2.h>
 #include <vector>
 
-#include "Graphics.hpp"
-
-// Wrapper over a CGAL triangulation
+// Wrapper for displaying a CGAL 2D triangulation
 template <typename T>
 class QTriangulationItem : public QGraphicsItem {
     public:
         typedef typename T::Point Point_2;
         typedef typename T::Segment Segment_2;
 
-        QTriangulationItem (QGraphicsItem *parent = 0) : QGraphicsItem(parent) {}
+        QTriangulationItem (const QPen &pen,
+                            QGraphicsItem *parent = 0) : QGraphicsItem(parent), pen(pen) {}
 
         void insert (Point_2 p) {
             tri.insert(p);
@@ -33,8 +32,7 @@ class QTriangulationItem : public QGraphicsItem {
         void paint (QPainter *painter,
                     const QStyleOptionGraphicsItem *option,
                     QWidget *widget) {
-            // FIXME: pass color as a parameter
-            painter->setPen(Graphics::solidRed);
+            painter->setPen(pen);
 
             for (typename T::Finite_edges_iterator eit = tri.finite_edges_begin();
                  eit != tri.finite_edges_end();
@@ -61,9 +59,10 @@ class QTriangulationItem : public QGraphicsItem {
             m_points.clear();
         }
 
-    private:
+    protected:
         T tri;
         std::vector<Point_2> m_points;
+        QPen pen;
 };
 
 #endif

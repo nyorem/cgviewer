@@ -7,11 +7,12 @@
 #include <CGAL/Bbox_2.h>
 
 #include "CGAL_typedefs.hpp"
-#include "Graphics.hpp"
 
+// Wrapper for displaying a list of points
 class QPointListItem : public QGraphicsItem {
     public:
-        QPointListItem (QGraphicsItem *parent = 0) : QGraphicsItem(parent) {}
+        QPointListItem (const QPen& pen,
+                        QGraphicsItem *parent = 0) : QGraphicsItem(parent), pen(pen) {}
 
         void insert (Point_2 p) {
             m_points.push_back(p);
@@ -26,8 +27,7 @@ class QPointListItem : public QGraphicsItem {
         void paint (QPainter *painter,
                     const QStyleOptionGraphicsItem *option,
                     QWidget *widget) {
-            // FIXME: pass color as a parameter
-            painter->setPen(Graphics::solidBlack);
+            painter->setPen(pen);
 
             for (int i = 0; i < m_points.size(); ++i) {
                 painter->drawEllipse(m_points[i].x(), m_points[i].y(), 1, 1);
@@ -51,6 +51,7 @@ class QPointListItem : public QGraphicsItem {
 
     private:
         Points_2 m_points;
+        QPen pen;
 };
 
 #endif
