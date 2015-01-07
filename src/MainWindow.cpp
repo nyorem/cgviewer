@@ -101,7 +101,7 @@ void MainWindow::toggleCrust () {
 }
 
 void MainWindow::randomPointsSquare () {
-    // TODO: add slider for radius
+    // TODO: add dialog box for radius
     m_view->m_scene->randomPointsSquare(100, 150);
 }
 

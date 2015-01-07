@@ -62,9 +62,9 @@ class QDelaunayTriangulationItem : public QTriangulationItem<DT> {
         }
 
     private:
+        bool m_voronoiVerticesVisible;
         QPen penVoronoiVertices;
         std::vector<Point_2> m_voronoiVertices;
-        bool m_voronoiVerticesVisible;
 
         void computeVoronoiVertices () {
             m_voronoiVertices.clear();

@@ -1,52 +1,44 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.11)
 
-project(simple)
+project(cgviewer)
 
-set (EXECUTABLE_NAME "cgviewer")
-set (INCLUDE_DIR "inc")
+set (EXECUTABLE_NAME "main")
 set (SOURCE_DIR "src")
 
-# Include directories
-INCLUDE_DIRECTORIES (${INCLUDE_DIR})
+# Compilation flags
+add_definitions (-Wall)
 
-# Sources
+# Qt5
+set (CMAKE_PREFIX_PATH "/usr/local/Cellar/qt5/5.4.0/")
+# For automoc to work headers and source files must be in the same directory
+set (CMAKE_AUTOMOC ON)
+set (CMAKE_INCLUDE_CURRENT_DIR ON)
+
+# Components
+find_package(Qt5Widgets REQUIRED)
+
+# CGAL
+find_package(CGAL REQUIRED)
+include (${CGAL_USE_FILE})
+
+# run
+ADD_CUSTOM_TARGET(run
+    COMMAND ${EXECUTABLE_NAME}
+    DEPENDS ${EXECUTABLE_NAME}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+)
+
+# Source files
 FILE(
-  GLOB
+  GLOB_RECURSE
   ${EXECUTABLE_NAME}_SOURCES
   ${SOURCE_DIR}/**.cpp
   )
 
-# Headers
-FILE(
-  GLOB
-  ${EXECUTABLE_NAME}_HEADERS
-  ${SOURCE_DIR}/**.hpp
-  )
-
-# Qt5
-set (CMAKE_PREFIX_PATH "/usr/local/Cellar/qt5/5.4.0/")
-# Find includes in corresponding build directories
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-# Instruct CMake to run moc automatically when needed.
-# set(CMAKE_AUTOMOC ON)
-# Qt5 components
-find_package(Qt5Widgets)
-
-# CGAL
-find_package(CGAL REQUIRED)
-include( ${CGAL_USE_FILE} )
-
-# moc
-qt5_wrap_cpp(moc_sources ${INCLUDE_DIR}/MainWindow.hpp)
-list(APPEND ${${EXECUTABLE_NAME}_SOURCES} ${moc_sources})
-
 # Executable
-ADD_EXECUTABLE(${EXECUTABLE_NAME}
-  ${${EXECUTABLE_NAME}_SOURCES}
-  ${${EXECUTABLE_NAME}_HEADERS}
-  ${moc_sources}
-  )
+ADD_EXECUTABLE(${EXECUTABLE_NAME} ${${EXECUTABLE_NAME}_SOURCES})
 
-# Link
-target_link_libraries(${EXECUTABLE_NAME} Qt5::Widgets)
-
+# Libraries
+target_link_libraries(${EXECUTABLE_NAME}
+    Qt5::Widgets
+    )
