@@ -12,7 +12,8 @@
 class QPointListItem : public QGraphicsItem {
     public:
         QPointListItem (const QPen& pen,
-                        QGraphicsItem *parent = 0) : QGraphicsItem(parent), pen(pen) {}
+                        float radius = 1.0,
+                        QGraphicsItem *parent = 0) : QGraphicsItem(parent), m_radius(radius), pen(pen) {}
 
         void insert (Point_2 p) {
             m_points.push_back(p);
@@ -24,13 +25,22 @@ class QPointListItem : public QGraphicsItem {
             m_points.insert(m_points.begin(), begin, beyond);
         }
 
+        void setRadius (float radius) {
+            m_radius = radius;
+        }
+
+        float radius () const {
+            return m_radius;
+        }
+
         void paint (QPainter *painter,
                     const QStyleOptionGraphicsItem *option,
                     QWidget *widget) {
             painter->setPen(pen);
 
             for (int i = 0; i < m_points.size(); ++i) {
-                painter->drawEllipse(m_points[i].x(), m_points[i].y(), 1, 1);
+                painter->drawEllipse(QPointF(m_points[i].x(), m_points[i].y()),
+                                     m_radius, m_radius);
             }
 
             QGraphicsItem::scene()->update();
@@ -51,6 +61,7 @@ class QPointListItem : public QGraphicsItem {
 
     private:
         Points_2 m_points;
+        float m_radius;
         QPen pen;
 };
 

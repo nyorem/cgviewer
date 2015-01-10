@@ -7,6 +7,7 @@ A simple tool for visualizing 2D CGAL datastructures.
 - Delaunay triangulations and Voronoi vertices
 - Crust
 - Generate random points in a square
+- Regular triangulations
 
 ## Dependencies
 

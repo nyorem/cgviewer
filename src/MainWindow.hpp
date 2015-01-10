@@ -15,9 +15,11 @@ class MainWindow : public QWidget {
                     int h = consts::height_window);
 
     public slots:
-        void togglePoints ();
         void resetScene ();
+        void togglePoints ();
+        void toggleBalls ();
         void toggleDelaunayTriangulation ();
+        void toggleRegularTriangulation ();
         void toggleVoronoiVertices ();
         void toggleCrust ();
         void randomPointsSquare ();
@@ -26,10 +28,12 @@ class MainWindow : public QWidget {
         View *m_view;
         QWidget *m_rightside;
 
-        QPushButton* m_pointsButton;
         QPushButton* m_resetButton;
+        QPushButton* m_pointsButton;
+        QPushButton* m_ballsButton;
         QPushButton* m_delaunayButton;
         QPushButton* m_voronoiVerticesButton;
+        QPushButton* m_regularButton;
         QPushButton* m_crustButton;
         QPushButton* m_randomSquareButton;
 };

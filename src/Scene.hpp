@@ -11,12 +11,17 @@
 class Scene : public QGraphicsScene {
     public:
         Scene (QObject *parent = 0);
+
         void init ();
 
         void addPoint (int x, int y);
 
+        void setBallRadius (float radius);
+
         void togglePoints ();
+        void toggleBalls ();
         void toggleDelaunayTriangulation ();
+        void toggleRegularTriangulation ();
         void toggleVoronoiVertices ();
         void toggleCrust ();
         void randomPointsSquare (int N, float a);
@@ -25,8 +30,10 @@ class Scene : public QGraphicsScene {
 
     private:
         QPointListItem* m_points;
+        QPointListItem* m_balls;
         QCrustItem* m_crust;
         QDelaunayTriangulation2Item* m_dt;
+        QRegularTriangulation2Item* m_rt;
 };
 
 #endif
