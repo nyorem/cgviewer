@@ -5,6 +5,11 @@
 #include <QApplication>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QSpinBox>
+#include <QDoubleSpinBox>
+#include <QFormLayout>
+#include <QDialog>
+#include <QDialogButtonBox>
 
 MainWindow::MainWindow (int w, int h) : QWidget() {
     resize(w, h);
@@ -101,7 +106,36 @@ void MainWindow::toggleCrust () {
 }
 
 void MainWindow::randomPointsSquare () {
-    // TODO: add dialog box for radius
-    m_view->m_scene->randomPointsSquare(100, 150);
+    QDialog dialog(this);
+    dialog.setWindowTitle("Parameters");
+    QFormLayout formLayout(&dialog);
+
+    QSpinBox *numberPoints = new QSpinBox();
+    numberPoints->setMinimum(1);
+    numberPoints->setMaximum(100000);
+    numberPoints->setSingleStep(10);
+    numberPoints->setValue(100);
+    formLayout.addRow("Number of points:", numberPoints);
+
+    QDoubleSpinBox *radiusSquare = new QDoubleSpinBox();
+    radiusSquare->setMinimum(1);
+    radiusSquare->setMaximum(100);
+    radiusSquare->setSingleStep(0.1);
+    radiusSquare->setValue(1);
+    formLayout.addRow("Radius:", radiusSquare);
+
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+                               Qt::Horizontal, &dialog);
+    formLayout.addRow(&buttonBox);
+
+    connect(&buttonBox, &QDialogButtonBox::accepted,
+            &dialog, &QDialog::accept);
+    connect(&buttonBox, &QDialogButtonBox::rejected,
+            &dialog, &QDialog::reject);
+
+    if (dialog.exec() == QDialog::Accepted) {
+        m_view->m_scene->randomPointsSquare(numberPoints->value(),
+                                            radiusSquare->value() * 70);
+    }
 }
 
