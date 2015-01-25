@@ -4,7 +4,7 @@
 #include "QSegmentListItem.hpp"
 #include "crust_2.hpp"
 
-// Wrapper for cimputing and displaying the crust of a list of points
+// Wrapper for computing and displaying the crust of a list of points
 class QCrustItem : public QSegmentListItem {
     public:
         QCrustItem (const QPen& pen,

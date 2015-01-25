@@ -8,7 +8,6 @@
 
 #include <vector>
 
-#include "QTriangulationItem.hpp"
 #include "QRegularTriangulationItem.hpp"
 #include "QDelaunayTriangulationItem.hpp"
 
@@ -20,6 +19,12 @@ typedef CGAL::Segment_2<Kernel> Segment_2;
 
 typedef std::vector<Point_2> Points_2;
 typedef std::vector<Segment_2> Segments_2;
+
+typedef CGAL::Triangle_2<Kernel> Triangle_2;
+
+typedef CGAL::Line_2<Kernel> Line_2;
+
+typedef Kernel::FT FT;
 
 // Delaunay triangulations
 typedef CGAL::Delaunay_triangulation_2<Kernel> Delaunay_triangulation_2;

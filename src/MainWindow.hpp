@@ -22,6 +22,7 @@ class MainWindow : public QWidget {
         void toggleRegularTriangulation ();
         void toggleVoronoiVertices ();
         void toggleCrust ();
+        void toggleBetaSkeleton ();
         void randomPointsSquare ();
 
     private:
@@ -35,6 +36,7 @@ class MainWindow : public QWidget {
         QPushButton* m_voronoiVerticesButton;
         QPushButton* m_regularButton;
         QPushButton* m_crustButton;
+        QPushButton *m_betaSkeletonButton;
         QPushButton* m_randomSquareButton;
 };
 

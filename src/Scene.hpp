@@ -6,6 +6,7 @@
 
 #include "CGAL_typedefs.hpp"
 #include "QPointListItem.hpp"
+#include "QBetaSkeletonItem.hpp"
 #include "QCrustItem.hpp"
 
 class Scene : public QGraphicsScene {
@@ -24,6 +25,7 @@ class Scene : public QGraphicsScene {
         void toggleRegularTriangulation ();
         void toggleVoronoiVertices ();
         void toggleCrust ();
+        void toggleBetaSkeleton ();
         void randomPointsSquare (int N, float a);
 
         void reset ();
@@ -32,6 +34,7 @@ class Scene : public QGraphicsScene {
         QPointListItem* m_points;
         QPointListItem* m_balls;
         QCrustItem* m_crust;
+        QBetaSkeletonItem* m_betaSkeleton;
         QDelaunayTriangulation2Item* m_dt;
         QRegularTriangulation2Item* m_rt;
 };

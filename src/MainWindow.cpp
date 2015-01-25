@@ -53,6 +53,10 @@ MainWindow::MainWindow (int w, int h) : QWidget() {
     m_crustButton = new QPushButton("Crust", m_rightside);
     m_crustButton->move((m_rightside->width() - m_crustButton->width()) / 2, 0);
 
+    // Beta Skeleton
+    m_betaSkeletonButton = new QPushButton("Beta Skeleton", m_rightside);
+    m_betaSkeletonButton->move((m_rightside->width() - m_betaSkeletonButton->width()) / 2, 0);
+
     // Points in square
     m_randomSquareButton = new QPushButton("Points in square", m_rightside);
     m_randomSquareButton->move((m_rightside->width() - m_randomSquareButton->width()) / 2, 0);
@@ -67,6 +71,7 @@ MainWindow::MainWindow (int w, int h) : QWidget() {
     layout->addWidget(m_ballsButton);
     layout->addWidget(m_regularButton);
     layout->addWidget(m_crustButton);
+    layout->addWidget(m_betaSkeletonButton);
     m_rightside->setLayout(layout);
 
     // Slots
@@ -97,6 +102,10 @@ MainWindow::MainWindow (int w, int h) : QWidget() {
     // Crust
     connect(m_crustButton, &QPushButton::clicked,
             this, &MainWindow::toggleCrust);
+
+    // Beta Skeleton
+    connect(m_betaSkeletonButton, &QPushButton::clicked,
+            this, &MainWindow::toggleBetaSkeleton);
 
     // Points in square
     connect(m_randomSquareButton, &QPushButton::clicked,
@@ -136,6 +145,10 @@ void MainWindow::toggleVoronoiVertices () {
 
 void MainWindow::toggleCrust () {
     m_view->m_scene->toggleCrust();
+}
+
+void MainWindow::toggleBetaSkeleton () {
+    m_view->m_scene->toggleBetaSkeleton();
 }
 
 void MainWindow::randomPointsSquare () {

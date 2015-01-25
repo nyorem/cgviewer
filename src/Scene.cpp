@@ -1,6 +1,5 @@
 #include "Scene.hpp"
 #include "Graphics.hpp"
-#include "crust_2.hpp"
 #include "random_square_2.hpp"
 
 #include <iterator>
@@ -31,15 +30,22 @@ void Scene::init () {
     m_rt->hide();
 
     // Crust
-    m_crust = new QCrustItem(Graphics::solidGreen);
+    m_crust = new QCrustItem(Graphics::solidBlack);
     addItem(m_crust);
     m_crust->hide();
+
+    // Beta Skeleton
+    // TODO: beta dialog box
+    m_betaSkeleton = new QBetaSkeletonItem(1.7, Graphics::solidGreen);
+    addItem(m_betaSkeleton);
+    m_betaSkeleton->hide();
 }
 
 void Scene::addPoint (int x, int y) {
     m_points->insert(Point_2(x, y));
     m_dt->insert(Point_2(x, y));
     m_crust->insert(Point_2(x, y));
+    m_betaSkeleton->insert(Point_2(x, y));
     m_balls->insert(Point_2(x, y));
     m_rt->insert(Point_2(x, y), m_balls->radius());
 }
@@ -71,6 +77,15 @@ void Scene::toggleCrust () {
         m_crust->hide();
     } else {
         m_crust->show();
+        update();
+    }
+}
+
+void Scene::toggleBetaSkeleton () {
+    if (m_betaSkeleton->isVisible()) {
+        m_betaSkeleton->hide();
+    } else {
+        m_betaSkeleton->show();
         update();
     }
 }
@@ -108,6 +123,7 @@ void Scene::randomPointsSquare (int N, float a) {
     m_points->insert(points.begin(), points.end());
     m_dt->insert(points.begin(), points.end());
     m_crust->insert(points.begin(), points.end());
+    m_betaSkeleton->insert(points.begin(), points.end());
     m_rt->insert(points.begin(), points.end(), m_balls->radius());
 }
 
