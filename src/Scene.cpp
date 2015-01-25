@@ -20,7 +20,7 @@ void Scene::init () {
     m_dt->hide();
 
     // Balls (offset)
-    m_balls = new QPointListItem(Graphics::solidRed);
+    m_balls = new QPointListItem(Graphics::solidRed, true);
     addItem(m_balls);
     m_balls->hide();
 
