@@ -1,6 +1,8 @@
 #ifndef _GRAPHICS_HPP_
 #define _GRAPHICS_HPP_
 
+#include <QPen>
+
 namespace Graphics {
     // Some useful pens for drawing
     static const QPen solidBlack = QColor(0, 0, 0);

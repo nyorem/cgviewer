@@ -1,8 +1,8 @@
 #ifndef _QCRUSTITEM_HPP_
 #define _QCRUSTITEM_HPP_
 
-#include "QSegmentListItem.hpp"
 #include "crust_2.hpp"
+#include "QSegmentListItem.hpp"
 
 // Wrapper for computing and displaying the crust of a list of points
 class QCrustItem : public QSegmentListItem {

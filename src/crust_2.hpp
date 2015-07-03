@@ -1,9 +1,8 @@
 #ifndef _CRUST_2_H_
 #define _CRUST_2_H_
 
-#include "CGAL_typedefs.hpp"
-
 #include <CGAL/Delaunay_triangulation_2.h>
+#include "CGAL_typedefs.hpp"
 
 // Computes the crust of a list of points.
 // Pre-conditions:

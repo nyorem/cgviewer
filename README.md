@@ -4,11 +4,11 @@ A simple tool for visualizing 2D CGAL datastructures.
 
 ## Features
 
-- Delaunay triangulations and Voronoi vertices
-- Crust
-- beta-skeleton
-- Generate random points in a square
-- Regular triangulations
+- Generate random points in a square, on an ellipse
+- Delaunay triangulations, Voronoi vertices and edges
+- Compute the Crust
+- Compute the beta-skeleton
+- Load and save point clouds
 
 ## Dependencies
 

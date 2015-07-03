@@ -1,11 +1,9 @@
 #ifndef _QSEGMENTLISTITEM_HPP_
 #define _QSEGMENTLISTITEM_HPP_
 
+#include <CGAL/Bbox_2.h>
 #include <QGraphicsItem>
 #include <QPainter>
-
-#include <CGAL/Bbox_2.h>
-
 #include "CGAL_typedefs.hpp"
 
 // Wrapper for displaying a 2D path

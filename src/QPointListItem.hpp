@@ -27,6 +27,26 @@ class QPointListItem : public QGraphicsItem {
             m_points.insert(m_points.begin(), begin, beyond);
         }
 
+        void clear () {
+            m_points.clear();
+        }
+
+        std::vector<Point_2>::iterator begin () {
+            return m_points.begin();
+        }
+
+        std::vector<Point_2>::iterator end () {
+            return m_points.end();
+        }
+
+        Point_2 operator[] (int i) const {
+            return m_points[i];
+        }
+
+        size_t size() const {
+            return m_points.size();
+        }
+
         void setRadius (float radius) {
             m_radius = radius;
         }
@@ -50,12 +70,19 @@ class QPointListItem : public QGraphicsItem {
             painter->drawEllipse(center, m_radius, m_radius);
         }
 
+        void drawFilledCircle (QPainter *painter, Point_2 const &p) {
+            QPointF center(p.x(), p.y());
+
+            painter->setBrush(QBrush(m_pen.color()));
+            painter->drawEllipse(center, m_radius, m_radius);
+        }
+
         void paint (QPainter *painter,
                     const QStyleOptionGraphicsItem *option,
                     QWidget *widget) {
             painter->setPen(m_pen);
 
-            for (int i = 0; i < m_points.size(); ++i) {
+            for (size_t i = 0; i < m_points.size(); ++i) {
                 if (m_drawBalls) {
                     drawCircle(painter, m_points[i]);
                 } else {

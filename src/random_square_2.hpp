@@ -2,6 +2,7 @@
 #define _RANDOM_SQUARE_2_HPP_
 
 #include <CGAL/point_generators_2.h>
+#include "CGAL_typedefs.hpp"
 
 // Generate N points inside a square of side a.
 // Pre-condition:

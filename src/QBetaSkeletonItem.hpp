@@ -1,8 +1,8 @@
 #ifndef _QBETASKELETONITEM_HPP_
 #define _QBETASKELETONITEM_HPP_
 
-#include "QSegmentListItem.hpp"
 #include "beta_skeleton_2.hpp"
+#include "QSegmentListItem.hpp"
 
 // Wrapper for computing and displaying the beta skeleton of a list of points
 class QBetaSkeletonItem : public QSegmentListItem {

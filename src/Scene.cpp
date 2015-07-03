@@ -1,8 +1,10 @@
-#include "Scene.hpp"
+#include <fstream>
+#include <iterator>
+#include <QFileDialog>
 #include "Graphics.hpp"
 #include "random_square_2.hpp"
-
-#include <iterator>
+#include "random_ellipse_2.hpp"
+#include "Scene.hpp"
 
 Scene::Scene (QObject *parent) : QGraphicsScene(parent) {
     init();
@@ -15,7 +17,7 @@ void Scene::init () {
     m_points->show();
 
     // Delaunay Triangulation and Voronoi vertices
-    m_dt = new QDelaunayTriangulation2Item(Graphics::solidRed, Graphics::solidBlue);
+    m_dt = new QDelaunayTriangulation2Item(Graphics::solidBlack, Graphics::solidPurple);
     addItem(m_dt);
     m_dt->hide();
 
@@ -23,11 +25,6 @@ void Scene::init () {
     m_balls = new QPointListItem(Graphics::solidRed, true);
     addItem(m_balls);
     m_balls->hide();
-
-    // Regular Triangulation
-    m_rt = new QRegularTriangulation2Item(Graphics::solidPurple);
-    addItem(m_rt);
-    m_rt->hide();
 
     // Crust
     m_crust = new QCrustItem(Graphics::solidBlack);
@@ -44,10 +41,10 @@ void Scene::init () {
 void Scene::addPoint (int x, int y) {
     m_points->insert(Point_2(x, y));
     m_dt->insert(Point_2(x, y));
+    m_balls->insert(Point_2(x, y));
+
     m_crust->insert(Point_2(x, y));
     m_betaSkeleton->insert(Point_2(x, y));
-    m_balls->insert(Point_2(x, y));
-    m_rt->insert(Point_2(x, y), m_balls->radius());
 }
 
 void Scene::setBallRadius (float radius) {
@@ -99,15 +96,6 @@ void Scene::toggleDelaunayTriangulation () {
     }
 }
 
-void Scene::toggleRegularTriangulation () {
-    if (m_rt->isVisible()) {
-        m_rt->hide();
-    } else {
-        m_rt->show();
-        update();
-    }
-}
-
 void Scene::toggleVoronoiVertices () {
     if (m_dt->isVoronoiVerticesVisible()) {
         m_dt->hideVoronoiVertices();
@@ -117,14 +105,82 @@ void Scene::toggleVoronoiVertices () {
     }
 }
 
+void Scene::toggleVoronoiEdges () {
+    if (m_dt->isVoronoiEdgesVisible()) {
+        m_dt->hideVoronoiEdges();
+    } else {
+        m_dt->showVoronoiEdges();
+        update();
+    }
+}
+
 void Scene::randomPointsSquare (int N, float a) {
     Points_2 points;
     random_square_2(N, a, std::back_inserter(points));
     m_points->insert(points.begin(), points.end());
     m_dt->insert(points.begin(), points.end());
+
     m_crust->insert(points.begin(), points.end());
     m_betaSkeleton->insert(points.begin(), points.end());
-    m_rt->insert(points.begin(), points.end(), m_balls->radius());
+}
+
+void Scene::randomPointsEllipse (int N, float a, float b,
+                                 float noiseVariance,
+                                 float oscMagnitude,
+                                 bool uniform) {
+    Points_2 points;
+    random_on_ellipse_2(N, a, b, noiseVariance, oscMagnitude, uniform,
+                        std::back_inserter(points));
+
+    m_points->insert(points.begin(), points.end());
+    m_balls->insert(points.begin(), points.end());
+    m_dt->insert(points.begin(), points.end());
+
+    m_crust->insert(points.begin(), points.end());
+    m_betaSkeleton->insert(points.begin(), points.end());
+}
+
+void Scene::savePointCloud () {
+    QString filename = QFileDialog::getSaveFileName(0, tr("Save Point Cloud"),
+                                                    QDir::currentPath(),
+                                                    tr("Point Clouds (*.xy)"));
+
+    std::ofstream file(filename.toStdString().c_str());
+
+    for (std::vector<Point_2>::iterator it = m_points->begin();
+         it != m_points->end();
+         ++it) {
+        Point_2& p = *it;
+        file << p.x() << " " << p.y() << std::endl;
+    }
+}
+
+void Scene::loadPointCloud () {
+    QString filename = QFileDialog::getOpenFileName(0, tr("Open Point Cloud"),
+                                                    QDir::currentPath(),
+                                                    tr("Point Clouds (*.xy)"));
+
+    std::vector<Point_2> points;
+    std::ifstream file(filename.toStdString().c_str());
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::istringstream ss(line);
+        float x, y;
+        if (ss >> x >> y) {
+            Point_2 p(x, y);
+            points.push_back(p);
+        }
+    }
+
+    // Update
+    m_points->insert(points.begin(), points.end());
+
+    m_balls->clear();
+    m_balls->insert(m_points->begin(), m_points->end());
+
+    m_dt->clear();
+    m_dt->insert(m_points->begin(), m_points->end());
 }
 
 void Scene::reset () {

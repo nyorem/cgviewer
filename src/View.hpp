@@ -1,11 +1,10 @@
 #ifndef _VIEW_HPP_
 #define _VIEW_HPP_
 
-#include <QWidget>
 #include <QGraphicsView>
-#include <QMouseEvent>
 #include <QKeyEvent>
-
+#include <QMouseEvent>
+#include <QWidget>
 #include "Scene.hpp"
 
 class View : public QGraphicsView {

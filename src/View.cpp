@@ -1,10 +1,9 @@
-#include "View.hpp"
-#include "Scene.hpp"
-
 #include <QApplication>
 #include <QGraphicsView>
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include "Scene.hpp"
+#include "View.hpp"
 
 View::View (int w, int h, QWidget *parent) : QGraphicsView(parent) {
     resize(w, h);
